@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('tanggal_pemesanan');
             $table->string('id_metode_pembayaran')->nullable();
             $table->string('status_pembayaran')->nullable();
-            $table->enum('status', ['proses', 'dikirim', 'sukses', 'canceled'])->default('proses');
+            $table->enum('status', ['baru', 'proses', 'dikirim', 'sukses', 'canceled'])->default('baru');
             $table->string('currency')->nullable();
             $table->string('metode_pengiriman')->nullable();
             $table->decimal('ongkos_kirim', 10, 2)->nullable();

@@ -74,21 +74,24 @@ class OrderResource extends Resource
                             ->default('pending'),
                         ToggleButtons::make('status')
                             ->options([
+                                'baru' => 'Baru',
                                 'proses' => 'Proses',
                                 'dikirim' => 'Dikirim',
                                 'sukses' => 'Sukses',
                                 'canceled' => 'Canceled'
                             ])
-                            ->default('proses')
+                            ->default('baru')
                             ->required()
                             ->inline()
                             ->colors([
+                                'baru' => 'primary',
                                 'proses' => 'warning',
                                 'dikirim' => 'info',
                                 'sukses' => 'success',
                                 'canceled' => 'danger'
                             ])
                             ->icons([
+                                'baru' => 'heroicon-m-shopping-bag',
                                 'proses' => 'heroicon-m-arrow-path',
                                 'dikirim' => 'heroicon-m-truck',
                                 'sukses' => 'heroicon-m-check-badge',
@@ -205,6 +208,7 @@ class OrderResource extends Resource
                     ->searchable(),
                 SelectColumn::make('status')
                     ->options([
+                        'baru' => 'Baru',
                         'proses' => 'Proses',
                         'dikirim' => 'Dikirim',
                         'sukses' => 'Sukses',
