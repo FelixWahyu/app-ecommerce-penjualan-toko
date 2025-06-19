@@ -30,6 +30,7 @@ use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\OrderResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\OrderResource\RelationManagers;
+use App\Filament\Resources\OrderResource\RelationManagers\AddressRelationManager;
 use Filament\Support\Enums\ActionSize;
 
 class OrderResource extends Resource
@@ -211,7 +212,6 @@ class OrderResource extends Resource
                     ])
                     ->searchable()
                     ->sortable(),
-
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -244,7 +244,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AddressRelationManager::class
         ];
     }
 
