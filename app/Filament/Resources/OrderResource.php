@@ -13,11 +13,15 @@ use Filament\Tables\Table;
 use Illuminate\Support\Number;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Columns\SelectColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\ToggleButtons;
@@ -26,9 +30,7 @@ use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\OrderResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\OrderResource\RelationManagers;
-use Filament\Forms\Components\Hidden;
-use Filament\Tables\Columns\SelectColumn;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Support\Enums\ActionSize;
 
 class OrderResource extends Resource
 {
@@ -105,7 +107,8 @@ class OrderResource extends Resource
                             ->required()
                             ->options([
                                 'gosend' => 'Gosend',
-                                'regular' => 'Regular'
+                                'cod' => 'Cash On Deliveri',
+                                'ambil-ditoko' => 'Ambil ditoko'
                             ]),
                         Textarea::make('keterangan')
                             ->columnSpanFull()
@@ -178,6 +181,9 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('tanggal_pemesanan')
+                    ->sortable()
+                    ->formatStateUsing(fn($state) => \Carbon\Carbon::parse($state)->translatedFormat('d F Y')),
                 TextColumn::make('user.name')
                     ->label('Pelanggan')
                     ->sortable()
@@ -191,6 +197,9 @@ class OrderResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make('status_pembayaran')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('metode_pengiriman')
                     ->sortable()
                     ->searchable(),
                 SelectColumn::make('status')
@@ -208,11 +217,18 @@ class OrderResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()
-                    ->color('info'),
-                Tables\Actions\EditAction::make()
-                    ->color('warning'),
-                Tables\Actions\DeleteAction::make(),
+                ActionGroup::make([
+                    Tables\Actions\ViewAction::make()
+                        ->color('info'),
+                    Tables\Actions\EditAction::make()
+                        ->color('warning'),
+                    Tables\Actions\DeleteAction::make(),
+                ])
+                    ->label('More actions')
+                    ->icon('heroicon-m-ellipsis-vertical')
+                    ->size(ActionSize::Small)
+                    ->color('warning')
+                    ->button(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
             ])

@@ -31,6 +31,7 @@ class SuperAdminPanelProvider extends PanelProvider
             ->brandName('TOKO RASIKUN')
             ->sidebarCollapsibleOnDesktop()
             ->profile()
+            ->spa()
             ->colors([
                 'primary' => Color::Blue,
             ])

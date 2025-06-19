@@ -72,7 +72,7 @@ class UserResource extends Resource
                     ->searchable(),
                 TextColumn::make('email_verified_at')
                     ->sortable()
-                    ->dateTime(),
+                    ->formatStateUsing(fn($state) => \Carbon\Carbon::parse($state)->translatedFormat('d F Y H:i')),
                 TextColumn::make('role')
                     ->sortable(),
             ])
