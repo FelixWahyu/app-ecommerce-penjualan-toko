@@ -113,7 +113,8 @@ class ProdukResource extends Resource
                     ->money('IDR')
                     ->sortable(),
                 TextColumn::make('stock')
-                    ->sortable(),
+                    ->sortable()
+                    ->color(fn($state) => $state <= 5 ? 'danger' : 'success'),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('created_at')

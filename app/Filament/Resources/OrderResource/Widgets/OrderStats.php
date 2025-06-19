@@ -11,6 +11,7 @@ class OrderStats extends BaseWidget
     protected function getStats(): array
     {
         return [
+            Stat::make('New Order', Order::query()->where('status', 'baru')->count()),
             Stat::make('Status Proses', Order::query()->where('status', 'proses')->count()),
             Stat::make('Status Pending', Order::query()->where('status_pembayaran', 'pending')->count())
         ];

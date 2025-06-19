@@ -146,6 +146,11 @@ class OrderResource extends Resource
                                     ->minValue(1)
                                     ->reactive()
                                     ->afterStateUpdated(fn($state, Set $set, Get $get) => $set('jumlah_total', $state * $get('jumlah_satuan')))
+                                    ->rule(function (Get $get) {
+                                        $produkId = $get('id');
+                                        $produk = Produk::find($produkId);
+                                        return $produk ? 'max:' . $produk->stock : null;
+                                    })
                                     ->columnSpan(2),
                                 TextInput::make('jumlah_satuan')
                                     ->required()
