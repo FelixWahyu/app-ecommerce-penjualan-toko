@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ProdukResource\Pages;
 
 use App\Filament\Resources\ProdukResource;
+use App\Filament\Resources\ProdukResource\Widgets\ProdukStats;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -14,6 +15,13 @@ class ListProduks extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ProdukStats::class,
         ];
     }
 }

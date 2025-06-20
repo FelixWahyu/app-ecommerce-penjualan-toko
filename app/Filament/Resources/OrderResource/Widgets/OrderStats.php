@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\OrderResource\Widgets;
 
 use App\Models\Order;
+use App\Models\Produk;
 use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;

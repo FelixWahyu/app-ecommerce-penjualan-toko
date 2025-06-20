@@ -122,6 +122,21 @@ class OrderResource extends Resource
                         Repeater::make('items')
                             ->relationship()
                             ->schema([
+                                Placeholder::make('stok_warning')
+                                    ->content(function (Get $get) {
+                                        $produk = \App\Models\Produk::find($get('id_produk'));
+                                        if (!$produk) return '';
+
+                                        if ($produk->stock <= 0) {
+                                            return 'Stok produk ini HABIS!';
+                                        } elseif ($produk->stock <= 5) {
+                                            return 'Stok hampir habis! Tersisa ' . $produk->stock;
+                                        }
+
+                                        return '';
+                                    })
+                                    ->columnSpanFull()
+                                    ->reactive(),
                                 Select::make('id_produk')
                                     ->relationship('produk', 'nama_produk')
                                     ->searchable()
