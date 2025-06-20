@@ -1,39 +1,34 @@
 <?php
 
-namespace App\Filament\Resources\UserResource\RelationManagers;
+namespace App\Filament\Widgets;
 
-use App\Filament\Resources\OrderResource;
-use App\Models\Order;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use App\Models\Order;
+use Filament\Tables\Table;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use League\CommonMark\Node\Query\OrExpr;
+use App\Filament\Resources\OrderResource;
+use Filament\Widgets\TableWidget as BaseWidget;
+use App\Filament\Resources\UserResource\RelationManagers\OrdersRelationManager;
 
-class OrdersRelationManager extends RelationManager
+class LatestOrders extends BaseWidget
 {
-    protected static string $relationship = 'orders';
+    protected int | string | array $columnSpan = 'full';
 
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                // 
-            ]);
-    }
+    protected static ?int $sort = 2;
 
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('id')
+            ->query(OrderResource::getEloquentQuery())
+            ->defaultPaginationPageOption(5)
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('id')
                     ->label('Order Id')
+                    ->searchable(),
+                TextColumn::make('user.name')
+                    ->label('Pelanggan')
                     ->searchable(),
                 TextColumn::make('grand_total')
                     ->money('IDR'),
@@ -70,23 +65,10 @@ class OrdersRelationManager extends RelationManager
                 TextColumn::make('tanggal_pemesanan')
                     ->formatStateUsing(fn($state) => \Carbon\Carbon::parse($state)->translatedFormat('d F Y')),
             ])
-            ->filters([
-                //
-            ])
-            ->headerActions([
-                // Tables\Actions\CreateAction::make(),
-            ])
             ->actions([
-                Action::make('Lihat pesanan')
+                Action::make('Lihat Pesanan')
                     ->url(fn(Order $record): string => OrderResource::getUrl('view', ['record' => $record]))
-                    ->color('info')
-                    ->icon('heroicon-o-eye'),
-                Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                    ->icon('heroicon-m-eye'),
             ]);
     }
 }

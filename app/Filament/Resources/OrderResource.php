@@ -207,7 +207,13 @@ class OrderResource extends Resource
                     ->searchable(),
                 TextColumn::make('status_pembayaran')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'pending' => 'warning',
+                        'sukses' => 'success',
+                        'gagal' => 'danger'
+                    }),
                 TextColumn::make('metode_pengiriman')
                     ->sortable()
                     ->searchable(),

@@ -34,6 +34,8 @@ class ProdukResource extends Resource
 
     protected static ?string $navigationLabel = 'Data Produk';
 
+    protected static ?string $recordTitleAttribute = 'nama_produk';
+
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
@@ -114,6 +116,7 @@ class ProdukResource extends Resource
                     ->sortable(),
                 TextColumn::make('stock')
                     ->sortable()
+                    ->badge()
                     ->color(fn($state) => $state <= 5 ? 'danger' : 'success'),
                 IconColumn::make('is_active')
                     ->boolean(),
@@ -121,10 +124,6 @@ class ProdukResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->formatStateUsing(fn($state) => \Carbon\Carbon::parse($state)->translatedFormat('d F Y H:i')),
-                // TextColumn::make('updated_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true)
             ])
             ->filters([
                 SelectFilter::make('category')
@@ -149,6 +148,11 @@ class ProdukResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['nama_produk', 'kode_produk'];
     }
 
     public static function getPages(): array

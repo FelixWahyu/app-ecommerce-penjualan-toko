@@ -29,6 +29,8 @@ class UserResource extends Resource
 
     protected static ?string $navigationLabel = 'Data Pengguna';
 
+    protected static ?string $recordTitleAttribute = 'name';
+
     protected static ?int $navigationSort = 7;
 
     public static function form(Form $form): Form
@@ -99,6 +101,11 @@ class UserResource extends Resource
         return [
             OrdersRelationManager::class,
         ];
+    }
+
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'email'];
     }
 
     public static function getPages(): array
