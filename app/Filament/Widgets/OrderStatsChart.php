@@ -22,9 +22,8 @@ class OrderStatsChart extends ChartWidget
     {
         $start = now();
         $end = now();
-        $interval = 'perDay'; // default
+        $interval = 'perDay';
 
-        // Tentukan start, end, dan interval berdasarkan filter
         switch ($this->filter) {
             case 'today':
                 $start = now()->startOfDay();
