@@ -50,13 +50,8 @@ class UserResource extends Resource
                     ->password()
                     ->dehydrated(fn($state) => filled($state))
                     ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord),
-                Select::make('role')
-                    ->options([
-                        'pelanggan' => 'Pelanggan',
-                        'admin' => 'Admin',
-                        'super-admin' => 'Super Admin',
-                        'owner' => 'Owner',
-                    ])
+                Select::make('roles')
+                    ->relationship('roles', 'name')
                     ->native(false),
                 TextInput::make('phone')
                     ->numeric(),
@@ -76,8 +71,10 @@ class UserResource extends Resource
                 TextColumn::make('email_verified_at')
                     ->sortable()
                     ->formatStateUsing(fn($state) => \Carbon\Carbon::parse($state)->translatedFormat('d F Y H:i')),
-                TextColumn::make('role')
-                    ->sortable(),
+                TextColumn::make('roles.name')
+                    ->sortable()
+                    ->badge()
+                    ->color('success'),
             ])
             ->filters([
                 //

@@ -29,6 +29,8 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationLabel = 'Data Kategori';
 
+    protected static ?string $navigationGroup = 'Manajemen Produk';
+
     protected static ?string $recordTitleAttribute = 'nama_category';
 
     protected static ?int $navigationSort = 1;

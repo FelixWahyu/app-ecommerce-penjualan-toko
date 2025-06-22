@@ -16,7 +16,7 @@ class OrderStats extends BaseWidget
             Stat::make('New Order', Order::query()->where('status', 'baru')->count()),
             Stat::make('Total Order', Order::count()),
             Stat::make('Total Pendapatan', Order::query()->where('status_pembayaran', 'sukses')->sum('grand_total')),
-            Stat::make('Total Pelanggan', User::query()->where('role', 'pelanggan')->count()),
+            // Stat::make('Total Pelanggan', User::query()->where('role', 'pelanggan')->count()),
         ];
     }
 }

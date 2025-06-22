@@ -36,6 +36,8 @@ class ProdukResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'nama_produk';
 
+    protected static ?string $navigationGroup = 'Manajemen Produk';
+
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
