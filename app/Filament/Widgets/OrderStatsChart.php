@@ -16,7 +16,7 @@ class OrderStatsChart extends ChartWidget
 
     protected static ?int $sort = 2;
 
-    public ?string $filter = 'today';
+    public ?string $filter = 'month';
 
     protected function getData(): array
     {

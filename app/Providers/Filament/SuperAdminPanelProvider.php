@@ -30,7 +30,7 @@ class SuperAdminPanelProvider extends PanelProvider
             ->id('super-admin')
             ->path('super-admin')
             ->login()
-            ->brandName('TOKO RASIKUN')
+            ->brandName('TOKO MRUYUNG')
             ->sidebarCollapsibleOnDesktop()
             ->profile()
             ->spa()
