@@ -8,6 +8,7 @@ use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
+use Filament\Navigation\NavigationGroup;
 use App\Filament\Resources\OrderResource;
 use Filament\Http\Middleware\Authenticate;
 use Illuminate\Session\Middleware\StartSession;
@@ -30,14 +31,22 @@ class SuperAdminPanelProvider extends PanelProvider
             ->id('super-admin')
             ->path('super-admin')
             ->login()
-            ->brandName('TOKO MRUYUNG')
+            ->brandName('MRUYUNG GUEST HOUSE & CAFE')
             ->sidebarCollapsibleOnDesktop()
             ->profile()
             ->spa()
             ->colors([
                 'primary' => Color::Blue,
             ])
+            ->sidebarWidth('25rem')
             ->collapsibleNavigationGroups(false)
+            ->navigationGroups([
+                NavigationGroup::make()
+                    ->label('Manajemen Produk'),
+
+                NavigationGroup::make()
+                    ->label('Manajemen Pengguna'),
+            ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

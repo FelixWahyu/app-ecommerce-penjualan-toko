@@ -26,7 +26,9 @@ class PaymentResource extends Resource
 
     protected static ?string $navigationLabel = 'Data Rekening';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationGroup = 'Manajemen Pengguna';
+
+    protected static ?int $navigationSort = 8;
 
     public static function form(Form $form): Form
     {

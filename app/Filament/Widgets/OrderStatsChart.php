@@ -14,9 +14,13 @@ class OrderStatsChart extends ChartWidget
 
     protected int | string | array $columnSpan = 'full';
 
+    protected static ?string $maxHeight = '300px';
+
+    protected static string $color = 'warning';
+
     protected static ?int $sort = 2;
 
-    public ?string $filter = 'month';
+    public ?string $filter = 'year';
 
     protected function getData(): array
     {
@@ -61,7 +65,7 @@ class OrderStatsChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Total Penjualan Harian',
+                    'label' => 'Total Penjualan',
                     'data' => $data->map(fn(TrendValue $value) => $value->aggregate)->toArray(),
                 ],
             ],
@@ -83,8 +87,8 @@ class OrderStatsChart extends ChartWidget
     {
         return [
             'today' => 'Today',
-            'week' => 'Last week',
-            'month' => 'Last month',
+            'week' => 'This week',
+            'month' => 'This month',
             'year' => 'This year',
         ];
     }
